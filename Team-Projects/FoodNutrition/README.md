@@ -10,6 +10,7 @@
     	    <img src="https://github.com/bdrsky2010/iOS-Technical-Project/blob/main/Team-Projects/FoodNutrition/image/main_3.png" height="500px" width="250px">
 </details>
 
+
 <details>
 <summary>상세 뷰</summary>
 
