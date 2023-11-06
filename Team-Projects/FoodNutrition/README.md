@@ -1,13 +1,13 @@
 # FoodNutrition
 
-
+  	<img src="https://github.com/bdrsky2010/iOS-Technical-Project/blob/main/Team-Projects/FoodNutrition/image/main_1.png" height="500px" width="250px">
+	<img src="https://github.com/bdrsky2010/iOS-Technical-Project/blob/main/Team-Projects/FoodNutrition/image/main_2.png" height="500px" width="250px">
+	<img src="https://github.com/bdrsky2010/iOS-Technical-Project/blob/main/Team-Projects/FoodNutrition/image/main_3.png" height="500px" width="250px">
 <details>
 <summary>메인 및 즐겨찾기</summary>
 
 <!-- summary 아래 한칸 공백 두어야함 -->
-  	<img src="https://github.com/bdrsky2010/iOS-Technical-Project/blob/main/Team-Projects/FoodNutrition/image/main_1.png" height="500px" width="250px">
-	<img src="https://github.com/bdrsky2010/iOS-Technical-Project/blob/main/Team-Projects/FoodNutrition/image/main_2.png" height="500px" width="250px">
-	<img src="https://github.com/bdrsky2010/iOS-Technical-Project/blob/main/Team-Projects/FoodNutrition/image/main_3.png" height="500px" width="250px">
+  	
 </details>
 
 <details>
