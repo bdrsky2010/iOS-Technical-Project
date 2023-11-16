@@ -20,35 +20,6 @@ struct Toast: ViewModifier {
 		}
 	}
 	
-	//	private var toastView: some View {
-	//		VStack {
-	//			Spacer()
-	//			if isShowing {
-	//				HStack {
-	//					Spacer()
-	//					Text(message)
-	//						.font(config.font)
-	//						.foregroundStyle(config.textColor)
-	//					Spacer()
-	//				}
-	//				.background(config.backgroundColor)
-	//				.clipShape(.rect(cornerRadius: 15))
-	//				.onTapGesture {
-	//					isShowing = false
-	//				}
-	//				.onAppear {
-	//					print("나타나라")
-	//					DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-	//						isShowing = false
-	//					}
-	//				}
-	//			}
-	//		}
-	//		.padding(.horizontal, 50)
-	//		.padding(.bottom, 18)
-	//		.animation(.linear(duration: 0.3), value: isShowing)
-	//		.transition(.opacity)
-	//	}
 	private var toastView: some View {
 		VStack {
 			Spacer()
@@ -91,7 +62,3 @@ extension View {
 		self.modifier(Toast(message: message, isShowing: isShowing, config: config))
 	}
 }
-
-//#Preview {
-//    Toast()
-//}
