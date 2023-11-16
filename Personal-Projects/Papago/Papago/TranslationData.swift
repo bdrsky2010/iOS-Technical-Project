@@ -10,11 +10,7 @@ import Foundation
 enum DecodeError: Error {
 	case doNotDecoded
 }
-/**
- http 통신할 때
- 1. 해당 api 요구사항에 맞게 헤더를 심어주고
- 2.
- */
+
 class PapagoStore: ObservableObject {
 	@Published var languageArray = LaunguageCode.allCases.map {
 		if $0 == .korean {
