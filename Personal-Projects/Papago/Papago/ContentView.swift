@@ -12,7 +12,6 @@ struct ContentView: View {
 	
 	@StateObject var papagoStore = PapagoStore()
 	
-//	@State private var editText: String = ""
 	@State private var text: String = ""
 	
 	@State private var isShowSourceLanguage: Bool = false
@@ -26,7 +25,7 @@ struct ContentView: View {
 	
 	private var fontSizes: [Font] = FontRange.allCases.map { $0.font }
 	
-	@State private var pasteboard = UIPasteboard.general
+//	@State private var pasteboard = UIPasteboard.general
 	@State private var isShowToast: Bool = false
 	
 	var body: some View {
@@ -60,20 +59,7 @@ struct ContentView: View {
 				VStack {
 					HStack {
 						if !papagoStore.text.isEmpty {
-							Button {
-								pasteboard.string = self.text
-								self.isShowToast.toggle()
-							} label: {
-								ZStack {
-									Circle()
-										.frame(width: 30, height: 30)
-										.foregroundStyle(Color.init(hex: "#8EBBFF"))
-									Image(systemName: "rectangle.portrait.on.rectangle.portrait")
-										.resizable()
-										.frame(width: 15, height: 20)
-										.rotationEffect(.degrees(180))
-								}
-							}
+							ClipboardCopyButton(text: papagoStore.text, isShowToast: $isShowToast)
 						}
 						Spacer()
 						Button {
@@ -104,9 +90,14 @@ struct ContentView: View {
 				Divider()
 					.background(Color.init(hex: "#8EBBFF"))
 				HStack {
-					Text(text)
-						.foregroundStyle(Color.init(hex: "#8EBBFF"))
-						.font(fontSizes[selectFontIndex])
+					VStack(alignment: .leading) {
+						if !text.isEmpty {
+							ClipboardCopyButton(text: self.text, isShowToast: $isShowToast)
+						}
+						Text(text)
+							.foregroundStyle(Color.init(hex: "#8EBBFF"))
+							.font(fontSizes[selectFontIndex])
+					}
 					Spacer()
 				}
 				.padding()
@@ -149,5 +140,3 @@ struct SideToolbarButton: View {
 #Preview {
     ContentView()
 }
-
-
