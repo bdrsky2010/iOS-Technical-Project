@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct ContentView: View {
 	
 	@StateObject var papagoStore = PapagoStore()
 	
-	@State private var editText: String = ""
+//	@State private var editText: String = ""
 	@State private var text: String = ""
 	
 	@State private var isShowSourceLanguage: Bool = false
@@ -23,9 +24,10 @@ struct ContentView: View {
 	
 	@State private var doneOrReturnKeyboardType: Bool = false
 	
-	@FocusState private var focusedField: Bool
-	
 	private var fontSizes: [Font] = FontRange.allCases.map { $0.font }
+	
+	@State private var pasteboard = UIPasteboard.general
+	@State private var isShowToast: Bool = false
 	
 	var body: some View {
         VStack {
@@ -57,6 +59,22 @@ struct ContentView: View {
 			ScrollView {
 				VStack {
 					HStack {
+						if !papagoStore.text.isEmpty {
+							Button {
+								pasteboard.string = self.text
+								self.isShowToast.toggle()
+							} label: {
+								ZStack {
+									Circle()
+										.frame(width: 30, height: 30)
+										.foregroundStyle(Color.init(hex: "#8EBBFF"))
+									Image(systemName: "rectangle.portrait.on.rectangle.portrait")
+										.resizable()
+										.frame(width: 15, height: 20)
+										.rotationEffect(.degrees(180))
+								}
+							}
+						}
 						Spacer()
 						Button {
 							papagoStore.text = ""
@@ -65,6 +83,7 @@ struct ContentView: View {
 								.foregroundStyle(Color.init(hex: "#8EBBFF"))
 						}
 					}
+					.padding(.bottom, 5)
 					TextField(text: $papagoStore.text,
 							  prompt: Text("번역할 내용을 입력하세요").foregroundStyle(Color.init(hex: "#8EBBFF")),
 							  axis: .vertical,
@@ -105,6 +124,7 @@ struct ContentView: View {
 			SettingModalView(doneOrReturnKeyboardType: $doneOrReturnKeyboardType, selectFontIndex: $selectFontIndex)
 				.presentationDetents([.medium])
 		}
+		.toast(message: "클립보드에 복사되었습니다.", isShowing: $isShowToast, config: Toast.Config(font: .body, textColor: .white, backgroundColor: Color.init(hex: "#8EBBFF")))
     }
 }
 
