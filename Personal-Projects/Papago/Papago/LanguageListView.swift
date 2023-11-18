@@ -18,20 +18,32 @@ struct LanguageListView: View {
 			List(0..<papagoStore.languageArray.count, id: \.self) { i in
 				if method == "입력" {
 					if papagoStore.languageArray[i].isSource {
-						SourceLanguageListButton(isShow: $isShow, index: i, foregroundHexCode: "#FFFFFF", listRowBacgroundHexCode: "#2F3651")
+						SourceLanguageListButton(isShow: $isShow, 
+												 index: i,
+												 foregroundHexCode: "#FFFFFF",
+												 listRowBacgroundHexCode: "#2F3651")
 					}
 					
 					if !papagoStore.languageArray[i].isSource {
-						SourceLanguageListButton(isShow: $isShow, index: i, foregroundHexCode: "#8EBBFF", listRowBacgroundHexCode: "#2F3651")
+						SourceLanguageListButton(isShow: $isShow, 
+												 index: i,
+												 foregroundHexCode: "#8EBBFF",
+												 listRowBacgroundHexCode: "#2F3651")
 					}
 				}
 				if method == "번역" {
 					if papagoStore.languageArray[i].isTarget {
-						TargetLanguageListButton(isShow: $isShow, index: i, foregroundHexCode: "#FFFFFF", listRowBacgroundHexCode: "#2F3651")
+						TargetLanguageListButton(isShow: $isShow, 
+												 index: i,
+												 foregroundHexCode: "#FFFFFF",
+												 listRowBacgroundHexCode: "#2F3651")
 					}
 					
 					if !papagoStore.languageArray[i].isTarget {
-						TargetLanguageListButton(isShow: $isShow, index: i, foregroundHexCode: "#8EBBFF", listRowBacgroundHexCode: "#2F3651")
+						TargetLanguageListButton(isShow: $isShow, 
+												 index: i,
+												 foregroundHexCode: "#8EBBFF",
+												 listRowBacgroundHexCode: "#2F3651")
 					}
 				}
 			}
