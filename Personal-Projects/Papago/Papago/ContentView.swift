@@ -25,7 +25,6 @@ struct ContentView: View {
 	
 	private var fontSizes: [Font] = FontRange.allCases.map { $0.font }
 	
-//	@State private var pasteboard = UIPasteboard.general
 	@State private var isShowToast: Bool = false
 	
 	var body: some View {
@@ -47,7 +46,8 @@ struct ContentView: View {
 					LanguageSelectButton(language: papagoStore.languageArray[papagoStore.targetIndex].language)
 				}
 
-				SideToolbarButton(systemName: "line.3.horizontal", isShowSettingView: $isShowSettingView)
+				SideToolbarButton(systemName: "line.3.horizontal", 
+								  isShowSettingView: $isShowSettingView)
 				
 			}
 			.padding(10)
@@ -59,7 +59,8 @@ struct ContentView: View {
 				VStack {
 					HStack {
 						if !papagoStore.text.isEmpty {
-							ClipboardCopyButton(text: papagoStore.text, isShowToast: $isShowToast)
+							ClipboardCopyButton(text: papagoStore.text, 
+												isShowToast: $isShowToast)
 						}
 						Spacer()
 						Button {
@@ -80,7 +81,9 @@ struct ContentView: View {
 					}
 					.onChange(of: papagoStore.text) {
 						Task {
-//							self.text = await papagoStore.requestTranslation(source: papagoStore.source, target: papagoStore.target, text: papagoStore.text)
+//							self.text = await papagoStore.requestTranslation(source: papagoStore.source, 
+//																			 target: papagoStore.target,
+//																			 text: papagoStore.text)
 						}
 					}
 					.font(.system(size: 25, weight: .bold))
@@ -92,7 +95,8 @@ struct ContentView: View {
 				HStack {
 					VStack(alignment: .leading) {
 						if !text.isEmpty {
-							ClipboardCopyButton(text: self.text, isShowToast: $isShowToast)
+							ClipboardCopyButton(text: self.text, 
+												isShowToast: $isShowToast)
 						}
 						Text(text)
 							.foregroundStyle(Color.init(hex: "#8EBBFF"))
@@ -115,7 +119,11 @@ struct ContentView: View {
 			SettingModalView(doneOrReturnKeyboardType: $doneOrReturnKeyboardType, selectFontIndex: $selectFontIndex)
 				.presentationDetents([.medium])
 		}
-		.toast(message: "클립보드에 복사되었습니다.", isShowing: $isShowToast, config: Toast.Config(font: .body, textColor: .white, backgroundColor: Color.init(hex: "#8EBBFF")))
+		.toast(message: "클립보드에 복사되었습니다.", 
+			   isShowing: $isShowToast,
+			   config: Toast.Config(font: .body,
+									textColor: .white,
+									backgroundColor: Color.init(hex: "#8EBBFF")))
     }
 }
 
