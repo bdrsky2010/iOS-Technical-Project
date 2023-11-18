@@ -59,11 +59,9 @@ class PapagoStore: ObservableObject {
 		guard let requestData = try? await URLSession.shared.data(for: requestURL) else { return "" }
 		
 		do {
-			
 			let tranlationData: Translation = try decodeData(requestData.0) // decodeData가 에러를 throw할 수 있어 try 구문 사용
 			print(tranlationData)
 			return tranlationData.message.result.translatedText             // 에러가 없을 시 번역된 텍스트를 리턴
-			
 		} catch DecodeError.doNotDecoded {
 			print("디코딩 에러")
 			return ""
