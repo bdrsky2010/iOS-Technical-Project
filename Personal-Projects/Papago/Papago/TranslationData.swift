@@ -14,12 +14,17 @@ enum DecodeError: Error {
 class PapagoStore: ObservableObject {
 	@Published var languageArray = LaunguageCode.allCases.map {
 		if $0 == .korean {
-			return Language(languageCode: $0, language: $0.language, isSource: true)
+			return Language(languageCode: $0, 
+							language: $0.language,
+							isSource: true)
 		}
 		if $0 == .english {
-			return Language(languageCode: $0, language: $0.language, isTarget: true)
+			return Language(languageCode: $0, 
+							language: $0.language,
+							isTarget: true)
 		}
-		return Language(languageCode: $0, language: $0.language)
+		return Language(languageCode: $0, 
+						language: $0.language)
 	}
 	
 	@Published var sourceIndex: Int = 0
@@ -28,11 +33,26 @@ class PapagoStore: ObservableObject {
 	@Published var source: String = "ko"
 	@Published var target: String = "en"
 	@Published var text: String = ""
+	
+	@Published var isTranslation: Bool = false
+	
 	/**
 	 source - 원본 언어(source language)의 언어 코드
 	 target - 목적 언어(target language)의 언어 코드
 	 text - 번역할 텍스트. 1회 호출 시 최대 5,000자까지 번역할 수 있습니다.
 	 */
+	
+	/**
+	 # publishing changes from background threads is not allowed; make sure to publish values from the main thread 보라색 에러
+	 
+	 - SwiftUI에서 async context에서 UI와 관련된 변수를 업데이트 할 때 발생하는 보라색 에러
+	 - UI와 관련된 변수는 main 스레드에서 처리하라는 것으로
+	 - DispatchQueue.main 을 대체하는 코드인 await MainActor.run { } 코드 블록으로 호출할 때 감싸주거나
+	 - 더 좋은 방식은 @MainActor 어노테이션을 사용하는 것.
+	 - 해당 변수를 업데이트하는 로직이 포함되어있는 함수 선언 시에 어노테이션을 더해준다.
+	 - 예시로 @MainActor func requestTranslation() { }
+	 */
+	@MainActor
 	func requestTranslation(source: String, target: String, text: String) async -> String {
 		let apiURL = "https://openapi.naver.com/v1/papago/n2mt"          // url 정의
 		let contentType = "application/x-www-form-urlencoded"            // 받아올 떄 필요한 ContenType 정의
@@ -61,11 +81,14 @@ class PapagoStore: ObservableObject {
 		do {
 			let tranlationData: Translation = try decodeData(requestData.0) // decodeData가 에러를 throw할 수 있어 try 구문 사용
 			print(tranlationData)
-			return tranlationData.message.result.translatedText             // 에러가 없을 시 번역된 텍스트를 리턴
+			isTranslation = false
+			return tranlationData.message.result.translatedText            // 에러가 없을 시 번역된 텍스트를 리턴
 		} catch DecodeError.doNotDecoded {
+			isTranslation = false
 			print("디코딩 에러")
 			return ""
 		} catch {
+			isTranslation = false
 			print("언노운 에러")
 			return ""
 		}
