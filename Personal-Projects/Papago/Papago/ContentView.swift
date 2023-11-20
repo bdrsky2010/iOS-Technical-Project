@@ -32,6 +32,7 @@ struct ContentView: View {
 	@State private var isShowToast: Bool = false
 	
 	@State private var textViewHeight: CGFloat = 50
+	let placeholder: String = "번역할 내용을 입력하세요."
 	
 	var body: some View {
 		VStack {
@@ -64,13 +65,13 @@ struct ContentView: View {
 			ScrollView {
 				VStack {
 					HStack {
-						if !papagoStore.text.isEmpty || papagoStore.text != "번역할 내용을 입력하세요" {
+						if !papagoStore.text.isEmpty {
 							ClipboardCopyButton(text: papagoStore.text,
 												isShowToast: $isShowToast)
 						}
 						Spacer()
 						Button {
-							papagoStore.text = "번역할 내용을 입력하세요"
+							papagoStore.text = placeholder
 							text = ""
 						} label: {
 							Image(systemName: "xmark")
@@ -82,7 +83,7 @@ struct ContentView: View {
 									text: $papagoStore.text,
 									height: $textViewHeight,
 									returnKeyboardType: $keyboardReturnType,
-									placeholder: "번역할 내용을 입력하세요",
+									placeholder: placeholder,
 									placeholderColor: UIColor.init(hex: "#8EBBFF"),
 									fontSize: 25,
 									fontWeight: .bold,
@@ -140,7 +141,7 @@ struct ContentView: View {
 				.contentShape(Rectangle())
 				.onTapGesture {
 					hideKeyboard()
-					if papagoStore.text != "번역할 내용을 입력하세요" {
+					if papagoStore.text != placeholder {
 						papagoStore.isTranslation = true
 					}
 					dump(papagoStore.isTranslation)
